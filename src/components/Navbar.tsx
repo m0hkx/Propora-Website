@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Icon from './Icon.tsx';
+import logoMark from '../assets/logo-mark-white.png';
 
 const links = ['Features', 'Solutions', 'Pricing', 'Resources'];
 
@@ -20,9 +21,7 @@ export default function Navbar() {
         <div className={`topbar-bar${scrolled ? ' scrolled' : ''}`}>
           <a className="brand" href="#top" aria-label="Propora home">
             <span className="brand-mark" aria-hidden="true">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 10.5L12 3l9 7.5M5 9.5V21h5v-6h4v6h5V9.5" />
-              </svg>
+              <img src={logoMark} alt="" width="19" height="19" />
             </span>
             Propora
           </a>

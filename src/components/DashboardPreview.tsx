@@ -1,4 +1,5 @@
 import Icon from './Icon.tsx';
+import logoMark from '../assets/logo-mark-white.png';
 
 /* Product overview preview — recreates the Propora dashboard from the
    reference: pill-tab product nav, KPI cards, revenue chart + occupancy,
@@ -72,9 +73,7 @@ export default function DashboardPreview() {
       <div className="dash-nav" aria-hidden="true">
         <span className="dash-brand">
           <span className="brand-mark" style={{ width: 30, height: 30, borderRadius: 9 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 3v18M5 8l7-5 7 5M5 8v8M19 8v8M5 16l7 5 7-5" />
-            </svg>
+            <img src={logoMark} alt="" width="16" height="16" />
           </span>
           Propora
         </span>
