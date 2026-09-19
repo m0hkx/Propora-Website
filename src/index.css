@@ -1,0 +1,361 @@
+/* Propora landing — design tokens (verbatim from design-system/colors.md §11)
+   + base styles. Plain CSS only; no Tailwind, no dark theme. */
+
+:root {
+  /* Brand */
+  --color-brand-primary: #0f766e;
+  --color-brand-secondary: #14b8a6;
+  --color-brand-accent: #0369a1;
+
+  /* Background / surface */
+  --color-background: #f0fdfa;
+  --color-surface: #ffffff;
+  --color-surface-sunken: #f8fafc;
+  --color-surface-muted: #e8f0f3;
+
+  /* Text */
+  --color-text-primary: #134e4a;
+  --color-text-secondary: #475569;
+  --color-text-inverse: #ffffff;
+  --color-text-on-dark-muted: #ccfbf1;
+
+  /* Borders / focus */
+  --color-border: #99f6e4;
+  --color-hairline: #f1f5f9;
+  --color-focus-ring: #0f766e;
+
+  /* Status */
+  --color-success: #047857;
+  --color-success-bg: #d1fae5;
+  --color-warning: #b45309;
+  --color-warning-bg: #fef3c7;
+  --color-error: #dc2626;
+  --color-error-strong: #b91c1c;
+  --color-error-bg: #fee2e2;
+  --color-info: #0369a1;
+  --color-info-bg: #e0f2fe;
+
+  /* Shape / depth */
+  --radius-card: 18px;
+  --radius-control: 12px;
+  --radius-pill: 999px;
+  --shadow-card: 0 10px 30px rgba(15, 118, 110, 0.08);
+  --shadow-lift: 0 8px 20px rgba(15, 118, 110, 0.3);
+  --shadow-window: 0 24px 70px rgba(15, 118, 110, 0.18);
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI',
+    Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(
+      900px 480px at 12% -4%,
+      rgba(20, 184, 166, 0.12),
+      transparent 65%
+    ),
+    radial-gradient(
+      820px 520px at 88% 22%,
+      rgba(15, 118, 110, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 620px at 50% 108%,
+      rgba(3, 105, 161, 0.06),
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      #f0fdfa 0%,
+      #ecfeff 40%,
+      #f8fafc 100%
+    );
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* Faint architectural grain — light diffusion, not decoration. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-brand-accent);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 100;
+  background: var(--color-text-primary);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Layout primitive */
+.wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* Buttons (colors.md §5: pill, weight 700) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15.5px;
+  line-height: 1;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.btn-teal {
+  background: var(--color-brand-primary);
+  color: #fff;
+}
+
+.btn-teal:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
+}
+
+.btn-ghost {
+  background: var(--color-surface);
+  border-color: rgba(153, 246, 228, 0.7);
+  color: var(--color-text-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--color-surface-muted);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.16);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--color-text-primary);
+}
+
+.btn-light:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-outline-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+.btn-outline-light:hover {
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Badges (colors.md §5: 999px pill, 12px bold, always with text label) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge-warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.badge-danger {
+  background: var(--color-error-bg);
+  color: var(--color-error-strong);
+}
+
+.badge-info {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.badge-neutral {
+  background: var(--color-surface-muted);
+  color: var(--color-text-primary);
+}
+
+.badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* Section scaffolding */
+.section {
+  padding-block: 88px;
+}
+
+.section-head {
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+
+.section-head.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.4vw, 40px);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.section-lede {
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* Section eyebrow — reserved for editorial before/after narratives. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--color-brand-primary);
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand-secondary);
+}
+
+/* Scroll reveal — one subtle treatment, motion answers hierarchy */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

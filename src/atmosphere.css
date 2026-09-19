@@ -1,0 +1,233 @@
+/* Architectural environment — fixed midground behind all landing content.
+   Layers (back → front): glow → far slabs → site plan → tower → plates.
+   Palette stays inside colors.md: whites, mint, ink hairlines, teal only
+   as edge light and contact shadow. Fixed elements never create scrollbars;
+   body already has overflow-x: clip as a backstop. */
+
+.atmo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Soft sunlit diffusion upper-right, behind the tower mass. */
+.atmo-glow {
+  position: absolute;
+  top: -24vh;
+  right: -14vw;
+  width: 72vw;
+  height: 88vh;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 255, 255, 0.95),
+    rgba(236, 254, 255, 0.5) 55%,
+    transparent 75%
+  );
+}
+
+/* Far massing blocks — heavily defocused, barely-there volume. */
+.atmo-far {
+  position: absolute;
+  inset: 0;
+  filter: blur(30px);
+}
+
+.far-slab {
+  position: absolute;
+  display: block;
+  border-radius: 36px;
+}
+
+.far-a {
+  top: -16vh;
+  right: -18vw;
+  width: 58vw;
+  height: 74vh;
+  transform: rotate(6deg);
+  background: linear-gradient(150deg, #dcebe8 0%, #eef7f4 55%, #f0fdfa 100%);
+  opacity: 0.85;
+}
+
+.far-b {
+  top: 22vh;
+  left: -24vw;
+  width: 40vw;
+  height: 60vh;
+  transform: rotate(-8deg);
+  background: linear-gradient(200deg, #e2efec 0%, #f0fdfa 80%);
+  opacity: 0.8;
+}
+
+/* Site-plan linework — sharp, faint, full-bleed survey layer. */
+.atmo-plan {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+/* Facade tower — mullion grid on sunlit glass, cropped by viewport edges. */
+.atmo-tower {
+  position: absolute;
+  top: -20vh;
+  right: -6vw;
+  width: clamp(320px, 40vw, 640px);
+  height: 132vh;
+  transform: perspective(1300px) rotateY(-9deg) rotate(2deg);
+  filter: blur(1px);
+}
+
+.tower-face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 30px;
+  background:
+    linear-gradient(
+      104deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(226, 239, 236, 0.6) 52%,
+      rgba(153, 246, 228, 0.45) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(19, 78, 74, 0.26) 0 2px,
+      transparent 2px 56px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(19, 78, 74, 0.2) 0 2px,
+      transparent 2px 46px
+    ),
+    linear-gradient(165deg, #ffffff 0%, #dcebe8 100%);
+  box-shadow:
+    -48px 70px 100px rgba(15, 118, 110, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Sunlit vertical edge catching the light. */
+.tower-edge {
+  position: absolute;
+  top: 4%;
+  bottom: 4%;
+  left: -7px;
+  width: 14px;
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff, rgba(20, 184, 166, 0.45));
+  filter: blur(3px);
+  opacity: 0.8;
+}
+
+/* Stepped floor plates — the model the dashboard sits inside. */
+.atmo-plates {
+  position: absolute;
+  top: 6vh;
+  right: -2vw;
+  width: min(760px, 62vw);
+  height: 86vh;
+  animation: atmo-drift 26s ease-in-out infinite alternate;
+}
+
+.plate {
+  position: absolute;
+  display: block;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff 0%, #e9f5f2 100%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  outline: 1px solid rgba(153, 246, 228, 0.55);
+  transform: skewY(-5deg);
+}
+
+.plate-a {
+  top: 44%;
+  right: 0;
+  width: 100%;
+  height: 150px;
+  box-shadow: 0 34px 60px rgba(15, 118, 110, 0.28);
+  border-top: 2px solid rgba(20, 184, 166, 0.75);
+}
+
+.plate-b {
+  top: 60%;
+  right: 6%;
+  width: 82%;
+  height: 120px;
+  box-shadow: 0 26px 48px rgba(15, 118, 110, 0.22);
+  border-top: 2px solid rgba(20, 184, 166, 0.55);
+  opacity: 0.95;
+}
+
+.plate-c {
+  top: 74%;
+  right: 12%;
+  width: 64%;
+  height: 96px;
+  box-shadow: 0 18px 36px rgba(15, 118, 110, 0.18);
+  opacity: 0.9;
+}
+
+@keyframes atmo-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-14px, 12px, 0);
+  }
+}
+
+/* ---------- Responsive recomposition (not downscaling) ---------- */
+@media (max-width: 1024px) {
+  .atmo-tower {
+    right: -22vw;
+    opacity: 0.85;
+  }
+
+  .atmo-plates {
+    right: -6vw;
+    opacity: 0.85;
+  }
+
+  .atmo-plan {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 860px) {
+  .atmo-glow {
+    right: -40vw;
+    width: 110vw;
+  }
+
+  .atmo-tower {
+    top: -16vh;
+    right: -44vw;
+    width: 92vw;
+    opacity: 0.55;
+  }
+
+  .atmo-plates {
+    top: 2vh;
+    right: -24vw;
+    width: 110vw;
+    opacity: 0.5;
+  }
+
+  .plate-c {
+    display: none;
+  }
+
+  .atmo-plan,
+  .far-b {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmo-plates {
+    animation: none;
+  }
+}
